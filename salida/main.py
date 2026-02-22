@@ -9,19 +9,15 @@
 
 from fastapi import FastAPI, HTTPException
 from typing import List
-from schemas import Cliente, Pedido, Producto
+from schemas import Cliente, Factura, Pedido, Producto
 
 app = FastAPI(title="TiendaOnline", version="1.0.0")
 
 # Base de datos simulada en memoria
-productos_db: List[Producto] = [{
-                "nombre": "Laptop Pro",
-                "precio": 999.99,
-                "stock": 42,
-                "disponible": True,
-            }]
+productos_db: List[Producto] = []
 clientes_db: List[Cliente] = []
 pedidos_db: List[Pedido] = []
+facturas_db: List[Factura] = []
 
 
 @app.get("/productos", response_model=List[Producto])
@@ -114,5 +110,27 @@ def get_pedidos_pedido_id(pedido_id: int):
 def post_pedidos(data: Pedido):
     """Crear un nuevo pedido"""
     pedidos_db.append(data)
+    return data
+
+
+@app.get("/facturas", response_model=List[Factura])
+def get_facturas():
+    """Listar todos los facturas"""
+    return facturas_db
+
+
+@app.get("/facturas/{factura_id}", response_model=Factura)
+def get_facturas_factura_id(factura_id: int):
+    """Obtener un factura por ID"""
+    item = next((i, x) for i, x in enumerate(facturas_db) if i == factura_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Factura no encontrado")
+    return item
+
+
+@app.post("/facturas", response_model=Factura, status_code=201)
+def post_facturas(data: Factura):
+    """Crear un nuevo factura"""
+    facturas_db.append(data)
     return data
 

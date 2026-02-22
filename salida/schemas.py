@@ -55,3 +55,20 @@ class Pedido(BaseModel):
             }
         }
 
+
+class Factura(BaseModel):
+    numero        : int
+    total         : float
+    estado        : str
+    fecha         : datetime
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "numero": 1001,
+                "total": 150.00,
+                "estado": "pendiente",
+                "fecha": "2024-01-15",
+            }
+        }
+

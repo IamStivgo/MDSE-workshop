@@ -73,4 +73,22 @@ pim TiendaOnline {
         response : Pedido
     }
 
+    endpoint GET /facturas {
+        summary  : "Listar todos los facturas"
+        params   : none
+        response : List[Factura]
+    }
+
+    endpoint GET /facturas/{id} {
+        summary  : "Obtener un factura por ID"
+        params   : id:Number
+        response : Factura
+    }
+
+    endpoint POST /facturas {
+        summary  : "Crear un nuevo factura"
+        params   : body:Factura
+        response : Factura
+    }
+
 }

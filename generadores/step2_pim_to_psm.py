@@ -110,17 +110,17 @@ SCHEMAS = {
         ("estado", "str"),
         ("fecha",  "datetime"),
     ],
+    "Factura": [
+        ("numero", "int"),
+        ("total",  "float"),
+        ("estado", "str"),
+        ("fecha",  "datetime"),
+    ],
 }
 
 
 def generar_psm(pim_model, ruta_salida: str):
     lineas = []
-    # lineas.append("// " + "=" * 58)
-    # lineas.append("// NIVEL 2 — PSM FastAPI (Platform Specific Model)")
-    # lineas.append("// " + "=" * 58)
-    # lineas.append("// Generado automáticamente desde pim.api (M2M)")
-    # lineas.append("// Tipos abstractos → tipos Python/Pydantic concretos")
-    # lineas.append("// " + "=" * 58)
     lineas.append("")
     lineas.append(f"psm fastapi {pim_model.name} {{")
     lineas.append("")

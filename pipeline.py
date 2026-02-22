@@ -31,7 +31,7 @@ import os
 base = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(base, "generadores"))
 
-from textx import metamodel_from_str
+from textx import metamodel_from_file, metamodel_from_str
 import step1_req_to_pim  as paso1
 import step2_pim_to_psm  as paso2
 import step3_psm_to_code as paso3
@@ -48,7 +48,7 @@ def run():
 
     # ── PASO 1: Requisitos → PIM ──────────────────────────────
     print("\n📋 PASO 1 — Leyendo Requisitos")
-    mm_req = metamodel_from_str(paso1.REQ_GRAMMAR)
+    mm_req = metamodel_from_file(os.path.join(modelos, "req_grammar.tx"))
     req    = mm_req.model_from_file(os.path.join(modelos, "requirements.req"))
     print(f"   API '{req.name}': {len(req.resources)} recursos")
     for r in req.resources:

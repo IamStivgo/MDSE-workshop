@@ -1,0 +1,22 @@
+APIRequirements:
+    'api' name=ID '{'
+        resources += Resource
+    '}'
+;
+
+Resource:
+    'resource' name=ID '{'
+        'operations' ':' operations+=Operation[',']
+        'fields' '{'
+            fields += Field
+        '}'
+    '}'
+;
+
+Operation:
+    name=ID
+;
+
+Field:
+    name=ID ':' type=ID
+;

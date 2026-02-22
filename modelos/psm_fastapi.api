@@ -21,6 +21,13 @@ psm fastapi TiendaOnline {
         fecha         : datetime
     }
 
+    schema Factura {
+        numero        : int
+        total         : float
+        estado        : str
+        fecha         : datetime
+    }
+
     route GET "/productos" {
         summary    : "Listar todos los productos"
         response   : List[Producto]
@@ -100,6 +107,26 @@ psm fastapi TiendaOnline {
         summary    : "Crear un nuevo pedido"
         body       : Pedido
         response   : Pedido
+        status     : 201
+    }
+
+    route GET "/facturas" {
+        summary    : "Listar todos los facturas"
+        response   : List[Factura]
+        status     : 200
+    }
+
+    route GET "/facturas/{factura_id}" {
+        summary    : "Obtener un factura por ID"
+        path_param : factura_id:int
+        response   : Factura
+        status     : 200
+    }
+
+    route POST "/facturas" {
+        summary    : "Crear un nuevo factura"
+        body       : Factura
+        response   : Factura
         status     : 201
     }
 

@@ -16,33 +16,8 @@ actualizar →  PUT    /recursos/{id}
 eliminar   →  DELETE /recursos/{id}
 """
 
-from textx import metamodel_from_str
+from textx import metamodel_from_file
 import os
-
-REQ_GRAMMAR = """
-APIRequirements:
-    'api' name=ID '{'
-        resources += Resource
-    '}'
-;
-
-Resource:
-    'resource' name=ID '{'
-        'operations' ':' operations+=Operation[',']
-        'fields' '{'
-            fields += Field
-        '}'
-    '}'
-;
-
-Operation:
-    name=ID
-;
-
-Field:
-    name=ID ':' type=ID
-;
-"""
 
 # Mapa: operación abstracta → (método HTTP, tiene {id} en ruta)
 OPERATION_MAP = {
@@ -64,12 +39,6 @@ SUMMARIES = {
 
 def generar_pim(req_model, ruta_salida: str):
     lineas = []
-    # lineas.append("// " + "=" * 58)
-    # lineas.append("// NIVEL 1 — PIM (Platform Independent Model)")
-    # lineas.append("// " + "=" * 58)
-    # lineas.append("// Generado automáticamente desde requirements.req (M2M)")
-    # lineas.append("// Operaciones → endpoints HTTP abstractos")
-    # lineas.append("// " + "=" * 58)
     lineas.append("")
     lineas.append(f"pim {req_model.name} {{")
     lineas.append("")
@@ -121,7 +90,7 @@ if __name__ == "__main__":
     base    = os.path.dirname(os.path.abspath(__file__))
     modelos = os.path.join(base, "..", "modelos")
 
-    mm  = metamodel_from_str(REQ_GRAMMAR)
+    mm  = metamodel_from_file(os.path.join(modelos, "req_grammar.tx"))
 
     print("📋 Leyendo requisitos de API...")
     req = mm.model_from_file(os.path.join(modelos, "requirements.req"))
