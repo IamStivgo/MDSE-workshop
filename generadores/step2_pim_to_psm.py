@@ -13,41 +13,9 @@ Los endpoints reciben status codes HTTP concretos y
 sus parámetros se clasifican como path_param o body.
 """
 
-from textx import metamodel_from_str
+from textx import metamodel_from_file
 import re
 import os
-
-PIM_GRAMMAR = """
-PIMApi:
-    'pim' name=ID '{'
-        endpoints += PIMEndpoint
-    '}'
-;
-
-PIMEndpoint:
-    'endpoint' method=ID path=Path '{'
-        'summary'  ':' summary=STRING
-        'params'   ':' params=ParamList
-        'response' ':' response=ResponseType
-    '}'
-;
-
-Path:
-    value=/[\\/a-zA-Z0-9_{}]+/
-;
-
-ParamList:
-    'none' | params+=Param[',']
-;
-
-Param:
-    name=ID ':' type=ID
-;
-
-ResponseType:
-    list?='List[' name=ID ']' | name=ID
-;
-"""
 
 # Tipos abstractos PIM → tipos Python/Pydantic
 PYTHON_TYPES = {
@@ -185,7 +153,7 @@ if __name__ == "__main__":
     base    = os.path.dirname(os.path.abspath(__file__))
     modelos = os.path.join(base, "..", "modelos")
 
-    mm  = metamodel_from_str(PIM_GRAMMAR)
+    mm  = metamodel_from_file(os.path.join(modelos, "pim_grammar.tx"))
 
     print("📐 Leyendo PIM...")
     pim = mm.model_from_file(os.path.join(modelos, "pim.api"))

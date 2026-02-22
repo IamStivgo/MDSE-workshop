@@ -60,7 +60,7 @@ def run():
 
     # ── PASO 2: PIM → PSM ─────────────────────────────────────
     print("\n📐 PASO 2 — Leyendo PIM")
-    mm_pim = metamodel_from_str(paso2.PIM_GRAMMAR)
+    mm_pim = metamodel_from_file(os.path.join(modelos, "pim_grammar.tx"))
     pim    = mm_pim.model_from_file(os.path.join(modelos, "pim.api"))
     print(f"   {len(pim.endpoints)} endpoints en el PIM")
 

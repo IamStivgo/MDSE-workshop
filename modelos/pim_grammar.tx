@@ -1,0 +1,29 @@
+PIMApi:
+    'pim' name=ID '{'
+        endpoints += PIMEndpoint
+    '}'
+;
+
+PIMEndpoint:
+    'endpoint' method=ID path=Path '{'
+        'summary'  ':' summary=STRING
+        'params'   ':' params=ParamList
+        'response' ':' response=ResponseType
+    '}'
+;
+
+Path:
+    value=/[\\/a-zA-Z0-9_{}]+/
+;
+
+ParamList:
+    'none' | params+=Param[',']
+;
+
+Param:
+    name=ID ':' type=ID
+;
+
+ResponseType:
+    list?='List[' name=ID ']' | name=ID
+;
