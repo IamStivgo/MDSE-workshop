@@ -58,7 +58,7 @@ class Pedido(BaseModel):
 
 class Factura(BaseModel):
     numero        : float
-    total         : float
+    id            : float
     estado        : str
     fecha         : datetime
 
@@ -66,7 +66,7 @@ class Factura(BaseModel):
         json_schema_extra = {
             "example": {
                 "numero": 1001,
-                "total": 150.00,
+                "id": 0.0,
                 "estado": "pendiente",
                 "fecha": "2024-01-15",
             }

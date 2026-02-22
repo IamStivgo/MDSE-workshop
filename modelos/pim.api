@@ -23,7 +23,7 @@ pim TiendaOnline {
 
     modelClass Factura {
         numero : Number
-        total : Number
+        id : Number
         estado : Text
         fecha : Date
     }

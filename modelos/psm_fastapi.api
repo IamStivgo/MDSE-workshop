@@ -23,7 +23,7 @@ psm fastapi TiendaOnline {
 
     schema Factura {
         numero : float
-        total : float
+        id : float
         estado : str
         fecha : datetime
     }

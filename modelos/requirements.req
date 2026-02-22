@@ -34,7 +34,7 @@ api TiendaOnline {
         operations: listar, obtener, crear
         fields {
             numero : Number
-            total  : Number
+            id  : Number
             estado : Text
             fecha  : Date
         }
