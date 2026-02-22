@@ -11,51 +11,9 @@ El código generado es 100% ejecutable:
     uvicorn salida.main:app --reload
 """
 
-from textx import metamodel_from_str
+from textx import metamodel_from_file
 import os
 import re
-
-PSM_GRAMMAR = """
-PSMApi:
-    'psm' platform=ID name=ID '{'
-        schemas += Schema
-        routes  += Route
-    '}'
-;
-
-Schema:
-    'schema' name=ID '{'
-        fields += SchemaField
-    '}'
-;
-
-SchemaField:
-    name=ID ':' type=ID
-;
-
-Route:
-    'route' method=ID path=STRING '{'
-        'summary'    ':' summary=STRING
-        (path_param=PathParam)?
-        (body=Body)?
-        'response'   ':' response=ResponseType
-        'status'     ':' status=INT
-    '}'
-;
-
-PathParam:
-    'path_param' ':' name=ID ':' type=ID
-;
-
-Body:
-    'body' ':' type=ID
-;
-
-ResponseType:
-    list?='List[' name=ID ']' | name=ID
-;
-"""
-
 
 # ── Generador de schemas.py ───────────────────────────────────
 
@@ -262,7 +220,7 @@ if __name__ == "__main__":
     salida  = os.path.join(base, "..", "salida")
     os.makedirs(salida, exist_ok=True)
 
-    mm  = metamodel_from_str(PSM_GRAMMAR)
+    mm  = metamodel_from_file(os.path.join(modelos, "psm_grammar.tx"))
 
     print("⚙️  Leyendo PSM FastAPI...")
     psm = mm.model_from_file(os.path.join(modelos, "psm_fastapi.api"))

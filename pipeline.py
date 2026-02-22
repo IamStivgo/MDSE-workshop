@@ -69,7 +69,7 @@ def run():
 
     # ── PASO 3: PSM → Código ──────────────────────────────────
     print("\n⚙️  PASO 3 — Generando código FastAPI")
-    mm_psm = metamodel_from_str(paso3.PSM_GRAMMAR)
+    mm_psm = metamodel_from_file(os.path.join(modelos, "psm_grammar.tx"))
     psm    = mm_psm.model_from_file(os.path.join(modelos, "psm_fastapi.api"))
     print(f"   {len(psm.schemas)} schemas, {len(psm.routes)} routes")
 

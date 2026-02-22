@@ -1,0 +1,38 @@
+PSMApi:
+    'psm' platform=ID name=ID '{'
+        schemas += Schema
+        routes  += Route
+    '}'
+;
+
+Schema:
+    'schema' name=ID '{'
+        fields += SchemaField
+    '}'
+;
+
+SchemaField:
+    name=ID ':' type=ID
+;
+
+Route:
+    'route' method=ID path=STRING '{'
+        'summary'    ':' summary=STRING
+        (path_param=PathParam)?
+        (body=Body)?
+        'response'   ':' response=ResponseType
+        'status'     ':' status=INT
+    '}'
+;
+
+PathParam:
+    'path_param' ':' name=ID ':' type=ID
+;
+
+Body:
+    'body' ':' type=ID
+;
+
+ResponseType:
+    list?='List[' name=ID ']' | name=ID
+;
