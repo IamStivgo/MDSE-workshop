@@ -1,9 +1,9 @@
-
 api TiendaOnline {
 
     resource Producto {
         operations: listar, obtener, crear, actualizar, eliminar
         fields {
+            id        : Number
             nombre    : Text
             precio    : Number
             stock     : Number
@@ -11,22 +11,46 @@ api TiendaOnline {
         }
     }
 
+    resource Direccion {
+        operations: listar, obtener, crear, actualizar, eliminar
+        fields {
+            id: Number
+            ciudad: Text
+            departamento: Text
+            nombre: Text
+            descripcion: Text
+        }
+    }
+
     resource Cliente {
         operations: listar, obtener, crear, eliminar
         fields {
+            id     : Number
             nombre : Text
             email  : Text
             edad   : Number
+            id_direccion: Number
         }
     }
 
     resource Pedido {
         operations: listar, obtener, crear
         fields {
+            id     : Number
             numero : Number
             total  : Number
             estado : Text
             fecha  : Date
         }
     }
+
+    resource Factura {
+        operations: listar, obtener, crear
+        fields {
+            id_cliente: Number
+            id_producto: Number
+            id_pedido: Number
+        }
+    }
 }
+
